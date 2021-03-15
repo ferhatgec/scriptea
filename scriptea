@@ -10,7 +10,7 @@
 #   Script front-end of compiled languages?
 #
 #   Supported languages
-#     C, C++, Rust
+#     C, C++, Rust, Nim
 
 # TODO:
 #  Check compilers is exist.
