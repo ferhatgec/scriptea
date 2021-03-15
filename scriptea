@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+
+# MIT License
+#
+# Copyright (c) 2021 Ferhat Geçdoğan All Rights Reserved.
+# Distributed under the terms of the MIT License.
+#
+
+# Scriptea
+#   Script front-end of compiled languages?
+#
+#   Supported languages
+#     C, C++, Rust
+
+# TODO:
+#  Check compilers is exist.
+#  Add hash support.
+#  Add argument support.
+#  Shebang?
+
+import os, sys, subprocess
+
+if len(sys.argv) < 2:
+    print("Scriptea\n", "Use with file!")
+    sys.exit(1)
+
+compiler_interface = 'cc'
+
+file = sys.argv[1]
+extension = os.path.splitext(file)[1]
+
+repository='https://github.com/ferhatgec/scriptea'
+
+if extension == '.c':
+    compiler_interface = 'cc'
+elif extension == '.cpp' \
+        or extension == '.cc':
+    compiler_interface = 'c++'
+elif extension == '.rs':
+    compiler_interface = 'rustc'
+else:
+    print('Wow! What\'s the type of file?\n' \
+            'Unfortunately Scriptea has idiotically extension parser\n' \
+            'Can you open a pull-request for this language?\n' \
+            'Type \'ok\' for redirect to repository.\n'
+            'https://github.com/ferhatgec/scriptea')
+
+    if str(input('hmm -> ')) == "ok":
+        print('Redirecttted!')
+        os.system('xdg-open ' + repository)
+
+        # Typed 'ok', successfully!
+        sys.exit(0)
+
+    # Not typed 'ok'
+    sys.exit(1)
+
+# Suppress output.
+subprocess.call([compiler_interface, file, '-o', 'scriptea_data'],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.STDOUT)
+
+if not os.path.exists('scriptea_data'):
+    # Add optional output log
+    print('Uh! Something went wrong, maybe your code has a error?')
+    sys.exit(1)
+
+os.system('./scriptea_data')
+os.remove('scriptea_data')
