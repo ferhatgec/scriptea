@@ -10,7 +10,7 @@
 #   Script front-end of compiled languages?
 #
 #   Supported languages
-#     C, C++, Rust, Nim, D
+#     C, C++, Rust, Nim, D, Golang...
 
 # TODO:
 #  Check compilers is exist.
@@ -31,6 +31,8 @@ extension = os.path.splitext(file)[1]
 
 repository='https://github.com/ferhatgec/scriptea'
 
+is_runner=False
+
 args = []
 
 if extension == '.c':
@@ -43,6 +45,11 @@ elif extension == '.cpp' \
 elif extension == '.rs':
     compiler_interface = 'rustc'
     args = [compiler_interface, file, '-o', 'scriptea_data']
+elif extension == ".go":
+    compiler_interface = 'go'
+    args = [compiler_interface, 'run', file]
+
+    is_runner =True
 elif extension == '.d':
     compiler_interface = 'dmd'
     args = [compiler_interface, file, '-of=scriptea_data']
@@ -72,9 +79,13 @@ else:
     sys.exit(1)
 
 # Suppress output.
+if is_runner:
+    subprocess.call(args)
+    sys.exit(0)
+
 subprocess.call(args,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.STDOUT)
+                stdout = subprocess.DEVNULL,
+                stderr = subprocess.STDOUT)
 
 if not os.path.exists('scriptea_data'):
     # Add optional output log
