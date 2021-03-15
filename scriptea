@@ -10,7 +10,8 @@
 #   Script front-end of compiled languages?
 #
 #   Supported languages
-#     C, C++, Rust, Nim, D, Golang...
+#     C, C++, Rust, Nim, D, Golang
+#     Zig...
 
 # TODO:
 #  Check compilers is exist.
@@ -56,6 +57,9 @@ elif extension == '.d':
 elif extension == '.nim':
     compiler_interface = 'nim'
     args = [compiler_interface, 'compile', file, '-o:scriptea_data']
+elif extension == '.zig':
+    compiler_interface = 'zig'
+    args = [compiler_interface, 'build-exe', file, '-O', 'scriptea_data']
 elif len(extension) == 0:
     print('What! : ' \
           'Scriptea cannot detect the extension.\n' \
