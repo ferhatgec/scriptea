@@ -38,6 +38,11 @@ elif extension == '.cpp' \
     compiler_interface = 'c++'
 elif extension == '.rs':
     compiler_interface = 'rustc'
+elif len(extension) == 0:
+    print('What! : ' \
+          'Scriptea cannot detect the extension.\n' \
+          'Why?\n'
+          ' * This file has not any extension?')
 else:
     print('Wow! What\'s the type of file?\n' \
             'Unfortunately Scriptea has idiotically extension parser\n' \
