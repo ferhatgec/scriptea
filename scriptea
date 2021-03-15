@@ -10,7 +10,7 @@
 #   Script front-end of compiled languages?
 #
 #   Supported languages
-#     C, C++, Rust, Nim
+#     C, C++, Rust, Nim, D
 
 # TODO:
 #  Check compilers is exist.
@@ -43,6 +43,9 @@ elif extension == '.cpp' \
 elif extension == '.rs':
     compiler_interface = 'rustc'
     args = [compiler_interface, file, '-o', 'scriptea_data']
+elif extension == '.d':
+    compiler_interface = 'dmd'
+    args = [compiler_interface, file, '-of=scriptea_data']
 elif extension == '.nim':
     compiler_interface = 'nim'
     args = [compiler_interface, 'compile', file, '-o:scriptea_data']
